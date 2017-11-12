@@ -9,7 +9,10 @@ def root():
 	resp = urllib2.urlopen("https://api.nasa.gov/planetary/apod?api_key=CJIKeQKz4nuOpRSiMmW2qWB7qylNrE717O2q30Va")
 	string = rep.read()
 	dictionary = json.loads(string)
-	return render_template('index.html', pic = dictionary['url'], info = dictionary["explanation"])
+	resp2 = urllib2.urlopen("https://content.guardianapis.com/search?api-key=a136031c-da93-4bea-912a-cfdc669d03c2")
+	string2 = resp2.read()
+	dictionary2 = json.loads(string2)
+	return render_template('index.html', pic = dictionary['url'], info = dictionary["explanation"], guardianlink = dictionary2["response"]["results"][0]["webUrl"])
 	
 if __name__ == '__main__':
 	app.run(debug = True)
